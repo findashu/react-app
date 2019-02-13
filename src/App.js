@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import ChangeState from "./components/ChangeState"
 
 class App extends React.Component {
     constructor () {
@@ -12,6 +13,7 @@ class App extends React.Component {
             <div>
                 <Header username={this.state.username} />
                 <Greetings />
+                <ChangeState />
             </div>
         )
     }
