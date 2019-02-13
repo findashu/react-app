@@ -1,10 +1,16 @@
 import React, {Component} from "react";
 
 class App extends React.Component {
+    constructor () {
+        super();
+        this.state = {
+            username :'ashu'
+        }
+    }
     render() {
         return (
             <div>
-                <Header username="ashu" />
+                <Header username={this.state.username} />
                 <Greetings />
             </div>
         )
