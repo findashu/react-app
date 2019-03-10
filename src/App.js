@@ -1,6 +1,8 @@
 import React from "react";
-import TodoItem from "./components/TodoItem"
-import todosData from "./todosData";
+
+// https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch
+// https://swapi.co/
+// https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-promise-27fc71e77261
 
 
 
@@ -8,31 +10,32 @@ class App extends React.Component {
     constructor() {
         super();
         this.state = {
-            todos:todosData
+            loading:false,
+            character : {}
         }
-        this.handleOnChange = this.handleOnChange.bind(this)
+        
     }
 
-    handleOnChange(id) {
-        this.setState(prevState => {
-           let updatedState =  prevState.todos.map(todo => {
-                if(todo.id === id){
-                    todo.completed =  !todo.completed ;
-                }
-                return todo;
+    componentDidMount() {
+        this.setState({loading:true})
+        fetch("https://swapi.co/api/people/1")
+            .then(response => response.json())
+            .then(data => {
+                this.setState({
+                    loading:false,
+                    character:data
+                })
             })
-            return {todos:updatedState}
-        })
     }
+   
 
 
 
     render() {
-        let todosComponent = this.state.todos.map(todo => <TodoItem todo={todo} key={todo.id} handleChange={this.handleOnChange} />)
-
+        let text = this.state.loading ? 'Loading ...' : this.state.character.name
         return (
-            <div className="todo-list">
-                {todosComponent}
+            <div >
+                <p>{text}</p>
             </div>
         )
     }
