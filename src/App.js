@@ -1,6 +1,5 @@
 import React from "react";
-import TodoItem from "./components/TodoItem"
-import todosData from "./todosData";
+import Conditional from "./components/Conditional"
 
 
 
@@ -8,31 +7,23 @@ class App extends React.Component {
     constructor() {
         super();
         this.state = {
-            todos:todosData
+            isLoading:true
         }
-        this.handleOnChange = this.handleOnChange.bind(this)
     }
-
-    handleOnChange(id) {
-        this.setState(prevState => {
-           let updatedState =  prevState.todos.map(todo => {
-                if(todo.id === id){
-                    todo.completed =  !todo.completed ;
-                }
-                return todo;
+    componentDidMount() {
+        
+        setTimeout(() => {
+            this.setState({
+                isLoading:false
             })
-            return {todos:updatedState}
-        })
+        }, 2000)
     }
-
-
-
     render() {
-        let todosComponent = this.state.todos.map(todo => <TodoItem todo={todo} key={todo.id} handleChange={this.handleOnChange} />)
+        
 
         return (
             <div className="todo-list">
-                {todosComponent}
+                {this.state.isLoading ? <h1>Loading...</h1> : <Conditional/>}
             </div>
         )
     }
