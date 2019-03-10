@@ -1,30 +1,24 @@
 import React from "react";
-import Conditional from "./components/Conditional"
-
-
 
 class App extends React.Component {
     constructor() {
         super();
         this.state = {
-            isLoading:true
+            unreadMessage:["a","a"]
         }
     }
-    componentDidMount() {
-        
-        setTimeout(() => {
-            this.setState({
-                isLoading:false
-            })
-        }, 2000)
-    }
+
     render() {
         
 
         return (
-            <div className="todo-list">
-                {this.state.isLoading ? <h1>Loading...</h1> : <Conditional/>}
-            </div>
+            // using and operator for conditional rendering
+            <div>
+            {
+                this.state.unreadMessage.length > 0 &&
+                <h1> You have {this.state.unreadMessage.length} unread message</h1>
+            }
+           </div>
         )
     }
 
