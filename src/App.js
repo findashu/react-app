@@ -1,41 +1,33 @@
 import React from "react";
 
-// https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch
-// https://swapi.co/
-// https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-promise-27fc71e77261
-
-
+// https://reactjs.org/docs/forms.html
 
 class App extends React.Component {
     constructor() {
         super();
         this.state = {
-            loading:false,
-            character : {}
+            firstName : "",
+            lastName : ""
         }
-        
-    }
-
-    componentDidMount() {
-        this.setState({loading:true})
-        fetch("https://swapi.co/api/people/1")
-            .then(response => response.json())
-            .then(data => {
-                this.setState({
-                    loading:false,
-                    character:data
-                })
-            })
+        this.handleChange = this.handleChange.bind(this)
     }
    
-
+    handleChange(event) {
+        let {name, value} = event.target
+        this.setState({
+            [name] : value
+        })
+    }
 
 
     render() {
-        let text = this.state.loading ? 'Loading ...' : this.state.character.name
         return (
-            <div >
-                <p>{text}</p>
+            <div>
+                <input type="text" value={this.state.firstName} name="firstName" placeholder="First Name"  onChange = {this.handleChange}/>
+                <br />
+                <input type="text" value={this.state.lastName} name="lastName" placeholder="Last Name"  onChange = {this.handleChange}/>
+                <h1>{this.state.firstName} {this.state.lastName}</h1>
+
             </div>
         )
     }
